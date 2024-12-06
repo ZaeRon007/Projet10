@@ -1,4 +1,4 @@
-name: Run Maven Tests in bobapp-back:latest
+name: Run tests in bobapp-back
 
 on:
   push:
@@ -29,17 +29,28 @@ jobs:
       - name: Pull Docker Image
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
 
-      # Lancement d'un conteneur pour exécuter Maven
-      # - name: Run Maven Tests
-      #   run: |
-      #     docker run --rm \
-      #       -v ${{ github.workspace }}:/app \
-      #       -w /app \
-      #       ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest \
-      #       mvn test
-
+      # Lancement des tests Maven
       - name: Build with Maven
         run: mvn clean compile --file pom.xml
 
       - name: Test with Maven
         run: mvn test --file pom.xml
+
+       # Génération du rapport JaCoCo
+      - name: Generate JaCoCo Report
+        run: mvn verify --file pom.xml
+
+      # Archive le rapport de couverture JaCoCo
+      - name: Upload JaCoCo Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: ./target/site/jacoco
+
+      # Upload coverage to Codecov
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.DOCKER_TOKEN }}
+          files: ./target/site/jacoco/jacoco.xml
+
