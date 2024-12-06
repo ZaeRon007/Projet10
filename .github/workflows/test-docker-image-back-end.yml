@@ -34,8 +34,8 @@ jobs:
       #       ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest \
       #       mvn test
 
-        - name: Build with Maven
-          uses: mvn clean compile --file pom.xml
+      - name: Build with Maven
+        uses: mvn clean compile --file pom.xml
 
-        - name: Test with Maven
-          uses: mvn test --file pom.xml
+      - name: Test with Maven
+        uses: mvn test --file pom.xml
