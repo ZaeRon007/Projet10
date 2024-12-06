@@ -23,7 +23,7 @@ jobs:
 
       # Téléchargement de l'image Docker générée
       - name: Pull Docker Image
-        run: docker pull bobapp-back:latest
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
 
       # Lancement d'un conteneur pour exécuter Maven
       - name: Run Maven Tests
