@@ -26,10 +26,16 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
 
       # Lancement d'un conteneur pour exécuter Maven
-      - name: Run Maven Tests
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/app \
-            -w /app \
-            bobapp-back:latest \
-            mvn test
+      # - name: Run Maven Tests
+      #   run: |
+      #     docker run --rm \
+      #       -v ${{ github.workspace }}:/app \
+      #       -w /app \
+      #       ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest \
+      #       mvn test
+
+        - name: Build with Maven
+          uses: mvn clean compile --file pom.xml
+
+        - name: Test with Maven
+          uses: mvn test --file pom.xml
