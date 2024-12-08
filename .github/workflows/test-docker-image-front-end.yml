@@ -40,7 +40,7 @@ jobs:
           git fetch
           git checkout features
           git pull origin features
-          git add coverage/bobapp
+          git add -f coverage/bobapp
           git commit -m "Add Karma code coverage report"
           git push origin features
       
