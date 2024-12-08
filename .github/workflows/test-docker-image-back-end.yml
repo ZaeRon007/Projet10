@@ -41,15 +41,31 @@ jobs:
         run: mvn verify --file pom.xml
 
       # Archive le rapport de couverture JaCoCo
-      - name: Upload JaCoCo Coverage Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: jacoco-report
-          path: ./back/target/site/jacoco
+      - name: Config JaCoCo Coverage Report
+        uses: madrapps/jacoco-report@v1.7.1
+         with:
+          paths: |
+            ${{ github.workspace }}/back/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
+          title: Code Coverage
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+          pass-emoji: 🍏
+          fail-emoji: ❌
+          debug-mode: false
 
-      # Upload coverage to Codecov
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          # files: ./target/site/jacoco/jacoco.xml
+      # Affiche le résultat du code coverage
+      - run: echo "Code coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+
+      # Commit le rapport JaCoCo
+      - name: Commit Jacoco Code Coverage Report
+        run: |
+          git config --global user.email "julien.pelissier8@orange.fr"
+          git config --global user.name "ZaeRon007"
+          git fetch
+          git checkout develop
+          git pull origin develop
+          git add target/site
+          git commit -m "Addition of JaCoCo code coverage report"
+          git push origin develop
+      - run: echo "Mvn Test's status is ${{ job.status }}."
