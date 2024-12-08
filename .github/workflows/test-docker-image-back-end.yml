@@ -55,4 +55,7 @@ jobs:
           git add -f target/site
           git commit -m "Addition of JaCoCo code coverage report"
           git push origin features
+        with: 
+          token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
+
       - run: echo "Mvn Test's status is ${{ job.status }}."
