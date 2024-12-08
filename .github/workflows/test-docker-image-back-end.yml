@@ -48,7 +48,8 @@ jobs:
         run: |
           git config --global user.email "julien.pelissier8@orange.fr"
           git config --global user.name "ZaeRon007"
-          git fetch
+          git fetch origin
+          git branch --list
           git checkout features
           git pull origin features
           git add target/site
