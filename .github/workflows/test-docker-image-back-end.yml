@@ -41,14 +41,16 @@ jobs:
           debug-mode: false
 
       # Affiche le résultat du code coverage
-      - run: echo "Code coverage ${{ steps.coverageReport.outputs.coverage-overall }}"
+      - run: echo "Code coverage overall ${{ steps.coverageReport.outputs.coverage-overall }}"
+      - run: echo "Code coverage changed files ${{ steps.coverageReport.outputs.coverage-changed-files }}"
 
       # Commit le rapport JaCoCo
       - name: Commit Jacoco Code Coverage Report
         run: |
           git config --global user.email "julien.pelissier8@orange.fr"
           git config --global user.name "ZaeRon007"
-          git fetch origin
+          git remote set-url "https://github.com/ZaeRon007/Projet10.git"
+          git fetch
           git branch --list
           git checkout features
           git pull origin features
