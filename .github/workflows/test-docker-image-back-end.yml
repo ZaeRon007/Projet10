@@ -43,16 +43,16 @@ jobs:
       # Archive le rapport de couverture JaCoCo
       - name: Config JaCoCo Coverage Report
         uses: madrapps/jacoco-report@v1.7.1
-          with:
-            paths: |
-              ${{ github.workspace }}/back/target/site/jacoco/jacoco.xml
-            token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
-            title: Code Coverage
-            min-coverage-overall: 80
-            min-coverage-changed-files: 80
-            pass-emoji: 🍏
-            fail-emoji: ❌
-            debug-mode: false
+        with:
+          paths: |
+            ${{ github.workspace }}/back/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
+          title: Code Coverage
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+          pass-emoji: 🍏
+          fail-emoji: ❌
+          debug-mode: false
 
       # Affiche le résultat du code coverage
       - run: echo "Code coverage ${{ steps.jacoco.outputs.coverage-overall }}"
