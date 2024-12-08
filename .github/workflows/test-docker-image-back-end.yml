@@ -63,9 +63,9 @@ jobs:
           git config --global user.email "julien.pelissier8@orange.fr"
           git config --global user.name "ZaeRon007"
           git fetch
-          git checkout develop
-          git pull origin develop
+          git checkout features
+          git pull origin features
           git add target/site
           git commit -m "Addition of JaCoCo code coverage report"
-          git push origin develop
+          git push origin features
       - run: echo "Mvn Test's status is ${{ job.status }}."
