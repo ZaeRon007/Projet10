@@ -49,12 +49,11 @@ jobs:
         run: |
           git config --global user.email "julien.pelissier8@orange.fr"
           git config --global user.name "ZaeRon007"
-          git remote set-url "origin" https://github.com/ZaeRon007/Projet10.git
           git fetch
           git branch --list
           git checkout features
           git pull origin features
-          git add target/site
+          git add -f target/site
           git commit -m "Addition of JaCoCo code coverage report"
           git push origin features
       - run: echo "Mvn Test's status is ${{ job.status }}."

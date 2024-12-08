@@ -1,11 +1,5 @@
 HELP.md
-back/target/classes/
-back/target/generated-sources
-back/target/generated-test-sources
-back/target/maven-status
-back/target/surefire-reports
-back/target/test-classes
-back/target/jacoco.exec
+back/target/*
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
