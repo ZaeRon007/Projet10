@@ -24,7 +24,6 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
           cache: maven
-      - run: java HelloWorldApp.java
 
       # Lancement des tests Maven
       - name: Build with Maven and generate JaCoCo Report
