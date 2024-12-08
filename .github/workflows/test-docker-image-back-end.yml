@@ -21,7 +21,6 @@ jobs:
       # Configuration de java 11 
       - uses: actions/setup-java@v4
         with: 
-          distribution: 'oracle'
           java-version: '11'
       - run: java HelloWorldApp.java
 
