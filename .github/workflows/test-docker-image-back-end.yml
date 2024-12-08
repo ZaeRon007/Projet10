@@ -33,12 +33,9 @@ jobs:
       - name: Build with Maven
         run: mvn clean compile --file pom.xml
 
-      - name: Test with Maven
-        run: mvn test --file pom.xml
-
        # Génération du rapport JaCoCo
       - name: Generate JaCoCo Report
-        run: mvn verify --file pom.xml
+        run: mvn test --file pom.xml
 
       # Archive le rapport de couverture JaCoCo
       - name: Config JaCoCo Coverage Report
