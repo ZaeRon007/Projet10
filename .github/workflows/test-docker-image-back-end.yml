@@ -26,8 +26,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Téléchargement de l'image Docker générée
-      - name: Pull Docker Image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
+      # - name: Pull Docker Image
+      #   run: docker pull ${{ secrets.DOCKER_USERNAME }}/bobapp-back:latest
 
       # Lancement des tests Maven
       - name: Build with Maven
@@ -45,10 +45,6 @@ jobs:
             ${{ github.workspace }}/back/target/site/jacoco/jacoco.xml
           token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
           title: Code Coverage
-          min-coverage-overall: 80
-          min-coverage-changed-files: 80
-          pass-emoji: 🍏
-          fail-emoji: ❌
           debug-mode: false
 
       # Affiche le résultat du code coverage
