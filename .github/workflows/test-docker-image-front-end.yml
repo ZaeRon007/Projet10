@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -41,7 +44,7 @@ jobs:
           git checkout features
           git pull origin features
           git add -f coverage/bobapp
-          git commit -m "Add Karma code coverage report"
+          git commit -m "Addition of Karma code coverage report"
           git push origin features
       
       #affiche le status à la fin
