@@ -36,7 +36,7 @@ jobs:
         with:
           paths: |
             ${{ github.workspace }}/back/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
+          token: ${{ secrets.DOCKER_GITHUB_TOKEN2 }}
           title: Code Coverage
           debug-mode: false
 
@@ -55,7 +55,5 @@ jobs:
           git add -f target/site
           git commit -m "Addition of JaCoCo code coverage report"
           git push origin features
-        with: 
-          token: ${{ secrets.DOCKER_GITHUB_TOKEN }}
 
       - run: echo "Mvn Test's status is ${{ job.status }}."
