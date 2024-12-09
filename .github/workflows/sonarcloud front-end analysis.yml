@@ -6,12 +6,13 @@ on:
   pull_request:
     branches: [main]
 
-strategy:
+jobs:
+
+  strategy:
       matrix:
         #version de node
         node-version: [20.x]
-
-jobs:
+        
   sonarcloud:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
