@@ -34,15 +34,23 @@ jobs:
       #test avec coverage du front
       - name: test coverage
         run: npm run test-coverage
-
+       
       #ajout du résultat du coverage dans git
       - name: Commit Karma Code Coverage Report
+
+
         run: |
           git config --global user.email "julien.pelissier8@orange.fr"
           git config --global user.name "ZaeRon007"
           git fetch
           git checkout features
           git pull origin features
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
           git add -f coverage/bobapp
           git commit -m "Addition of Karma code coverage report"
           git push origin features

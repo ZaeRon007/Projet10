@@ -55,6 +55,12 @@ jobs:
           git fetch
           git checkout features
           git pull origin features
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
           git add -f target/site
           git commit -m "Addition of JaCoCo code coverage report"
           git push origin features
