@@ -1,0 +1,59 @@
+name: Run tests in bobapp-front
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults: 
+      run:
+        working-directory: ./front
+    strategy:
+      matrix:
+        #version de node
+        node-version: [20.x]
+    steps:
+      #checkout / download des sources et utilisation de nodejs
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      #installation des dépendances
+      - name: install dependencies
+        run: npm install
+
+      #test avec coverage du front
+      - name: test coverage
+        run: npm run test-coverage
+       
+      #ajout du résultat du coverage dans git
+      - name: Commit Karma Code Coverage Report
+
+
+        run: |
+          git config --global user.email "julien.pelissier8@orange.fr"
+          git config --global user.name "ZaeRon007"
+          git fetch
+          git checkout features
+          git pull origin features
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git add -f coverage/bobapp
+          git commit -m "Addition of Karma code coverage report"
+          git push origin features
+      
+      #affiche le status à la fin
+      - run: echo "Test-coverage's status is ${{ job.status }}."

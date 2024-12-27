@@ -1,0 +1,38 @@
+name: SonarCloud front-end Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./front
+    
+    steps:
+          #checkout / download des sources et utilisation de nodejs 16
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cwd: "front"
+
+      #installation des dépendances
+      - name: install dependencies
+        run: npm install
+      #scan de sonarcloud (le projet est défini dans le fichier sonar-project.properties)
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: front
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

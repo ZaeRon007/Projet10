@@ -1,0 +1,47 @@
+name: SonarCloud back-end Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./back
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - uses: actions/setup-java@v4
+      with: 
+        distribution: 'zulu'
+        java-version: '17'
+        cache: maven
+
+    - name: Cache SonarCloud dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven
+
+    - name: Build project
+      run: mvn clean verify
+
+    - name: Run SonarCloud Scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn sonar:sonar -Dsonar.projectKey=ZaeRon007_Projet10 -Dsonar.organization=zaeron007 -Dsonar.host.url=https://sonarcloud.io
