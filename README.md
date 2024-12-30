@@ -2,7 +2,7 @@
 
 Clone project:
 
-> git clone XXXXX
+> git clone https://github.com/ZaeRon007/Projet10.git
 
 ## Front-end 
 
